@@ -7,6 +7,8 @@ import mongoose from 'mongoose';
 import { taskRouter } from './src/routes/tasks.js';
 import { userRouter } from './src/routes/users.js';
 
+const port = 5000
+
 const app = express()
 
 app.use(express.json())
@@ -21,4 +23,4 @@ const password = process.env.PASSWORD
 
 mongoose.connect(`mongodb+srv://${admin}:${password}@tasks.6buwucq.mongodb.net/tasks?retryWrites=true&w=majority`)
 
-app.listen(5000, ()=>console.log('Server is running at port 5000'))
+app.listen(port, ()=>console.log('Server is running'))
