@@ -5,8 +5,22 @@ import { UserModel } from '../models/users.js'
 
 const router = express.Router()
 
+const tokenSecret = process.env.JWT_SECRET
+
+
+router.get('/register', async (req,res)=>{
+    try{
+        const response = await UserModel.find({})
+        res.json(response)
+    } catch (err){
+        res.json(err)
+    }
+})
+
 router.post('/register', async (req, res) => {
     try {
+        console.log('Register route accessed');
+        
         const { username, password } = req.body;
 
         // Check if a user with the same username already exists
@@ -22,6 +36,7 @@ router.post('/register', async (req, res) => {
         const newUser = new UserModel({ username, password: hashedPassword });
         await newUser.save();
 
+        // res.json(existingUser)
         res.json({ message: 'User registered successfully' });
     } catch (error) {
         console.error("Error during registration:", error);
@@ -29,9 +44,19 @@ router.post('/register', async (req, res) => {
     }
 });
 
+router.get('/login', async (req,res)=>{
+    try{
+        const response = await UserModel.find({})
+        res.json(response)
+    } catch (err){
+        res.json(err)
+    }
+})
 
 router.post('/login', async (req, res) => {
     try {
+        console.log('Login route accessed');
+
         const { username, password } = req.body;
 
         // Check if a user with the provided username exists
@@ -49,7 +74,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Generate and send a JWT token upon successful login
-        const token = jwt.sign({ id: user._id }, "secret");
+        const token = jwt.sign({ id: user._id }, tokenSecret);
 
         res.json({ token, userID: user._id });
     } catch (error) {

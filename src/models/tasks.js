@@ -4,6 +4,8 @@ const TasksSchema = new mongoose.Schema({
     tasks_name: {type: String, required: true},
     tasks_description: {type: String, required: true},
     assignee:  {type:String, required: true},
+    assignedTo : {type: String, required: true},
+    priority_level: { type: String },
     due_date: {type: Date, required: true},
     status: {type: String, required: true},
     commnets: {type: String},

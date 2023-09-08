@@ -7,13 +7,15 @@ import mongoose from 'mongoose';
 import { taskRouter } from './src/routes/tasks.js';
 import { userRouter } from './src/routes/users.js';
 
+dotenv.config();
+
 const port = 5000
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
-dotenv.config();
+
 
 app.use('/auth', userRouter)
 app.use('/dashboard', taskRouter)
